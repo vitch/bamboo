@@ -25,4 +25,9 @@ class Bamboo_Field_HasOne extends Bamboo_Field_Integer
 			unset($this->relatedModel);
 		}
 	}
+	
+	public function __toString()
+	{
+		return $this->get()->{$this->relatedModel->__name_field}->raw();
+	}
 }
