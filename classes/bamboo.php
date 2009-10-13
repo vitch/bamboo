@@ -175,7 +175,9 @@ abstract class Bamboo
 	
 	public function delete()
 	{
-		throw new Exception('Unimplemented!');
+		DB::delete($this->_table)
+				->where($this->_id_field, '=', $this->__id)
+				->execute($this->_db);
 	}
 	
 	public function fields()
