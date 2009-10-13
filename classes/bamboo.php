@@ -94,7 +94,7 @@ abstract class Bamboo
 		$query = DB::select()
 					->from($this->_table);
 		foreach ($this->_fields as $field_name => $field) {
-			if ($field->get() != $field->default) {
+			if ($field->raw() != $field->default) {
 				$query->where($field_name, '=', $field->raw());
 			}
 		}

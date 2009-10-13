@@ -10,7 +10,7 @@ class Bamboo_Field_HasOne extends Bamboo_Field_Integer
     public function get()
     {
     	if (!isset($this->relatedModel)) {
-	    	if ($this->value) {
+	    	if (isset($this->value)) {
 	    		$this->relatedModel = Bamboo::factory($this->model);
 				$this->relatedModel->{$this->relatedModel->__id_field} = $this->raw();
 				$this->relatedModel->load();
