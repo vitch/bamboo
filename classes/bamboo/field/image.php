@@ -42,5 +42,10 @@ class Bamboo_Field_Image extends Bamboo_Field
 	 * @var  string one of the RESIZE_TYPE_* constants
 	 */
 	public $resize_type;
+	
+	public function __toString()
+	{
+		return $this->path . $this->value;
+	}
     
 }
