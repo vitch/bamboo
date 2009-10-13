@@ -133,7 +133,29 @@ abstract class Bamboo
 		$query->values($values);
 		
 		$result = $query->execute($this->_db);
-		$this->{$this->_id_field} = $result[0];
+		$id = $result[0];
+		$this->{$this->_id_field} = $id;
+		
+		if (isset($this->_sort_on)) {
+			$num_records = DB::select('*')
+							->from($this->_table)
+			// TODO: Sort on grouping?
+							->execute($this->_db)
+							->count();
+			DB::update($this->_table)
+				->set(
+					array(
+						$this->_sort_on => $num_records
+					)
+				)
+				->where($this->_id_field, '=', $id)
+				->execute($this->_db);
+			/*
+			$this->{$this->_sort_on} = $num_records;
+			$this->update();
+			*/
+		}
+		
 		return true;
 	}
 	
