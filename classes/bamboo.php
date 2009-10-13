@@ -27,7 +27,7 @@ abstract class Bamboo
 		return $model;
 	}
 	
-	public static function get_list($name, $deep = FALSE, $where = array())
+	public static function get_list($name, $deep = FALSE, $where = array(), $order_by = NULL, $order_by_dir = 'ASC')
 	{
 		$obj = Bamboo::factory($name);
 		$query = DB::select()
@@ -39,6 +39,9 @@ abstract class Bamboo
 		}
 		foreach ($where as $key=>$value) {
 			$query->where($key, '=', $value);
+		}
+		if ($order_by) {
+			$query->order_by($order_by, $order_by_dir);
 		}
 		$results = array();
 		$result = $query->execute($obj->_db);
