@@ -74,6 +74,12 @@ abstract class Bamboo
 			case '__name':
 				return $this->{$this->_name_field};
 				break;
+			case '_table':
+				return $this->_table;
+				break;
+			case '_sort_on':
+				return $this->_sort_on;
+				break;
 			default:
 				if (!isset($this->_fields[$name]))
 				{
