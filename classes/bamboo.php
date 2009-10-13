@@ -118,6 +118,25 @@ abstract class Bamboo
 		return false;
 	}
 	
+	public function create()
+	{
+		$query = DB::insert($this->_table);
+		$columns = array();
+		$values = array();
+		foreach ($this->_fields as $field_name => $field) {
+			if ($field->raw() && $field_name != $this->__id_field) {
+				array_push($columns, $field_name);
+				array_push($values, $field->raw());
+			}
+		}
+		$query->columns($columns);
+		$query->values($values);
+		
+		$result = $query->execute($this->_db);
+		$this->{$this->_id_field} = $result[0];
+		return true;
+	}
+	
 	public function update()
 	{
 		$query = DB::update($this->_table)
