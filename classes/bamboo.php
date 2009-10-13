@@ -42,6 +42,8 @@ abstract class Bamboo
 		}
 		if ($order_by) {
 			$query->order_by($order_by, $order_by_dir);
+		} else if ($obj->_sort_on) {
+			$query->order_by($obj->_sort_on);
 		}
 		$results = array();
 		$result = $query->execute($obj->_db);
