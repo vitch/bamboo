@@ -42,10 +42,23 @@ class Bamboo_Field_Image extends Bamboo_Field
 	 * @var  string one of the RESIZE_TYPE_* constants
 	 */
 	public $resize_type;
+
+	public function input($name, array $attr = array())
+	{
+		$attr['type'] = 'file';
+		$r = Form::input($name, '', $attr);
+		if ($this->value != '') {
+			$r .= HTML::image($this->__toString());
+		}
+		return $r;
+	}
 	
 	public function __toString()
 	{
-		return $this->path . $this->value;
+		if (isset($this->value) && $this->value != null) {
+			return $this->path . $this->value;
+		}
+		return '';
 	}
     
 }
