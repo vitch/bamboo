@@ -18,7 +18,7 @@ class Bamboo_Field_File extends Bamboo_Field
 		$attr['type'] = 'file';
 		$r = Form::input($name, '', $attr);
 		if ($this->value != '') {
-			$r .= HTML::anchor($this->__toString());
+			$r .= '[ ' . HTML::anchor($this->__toString()) . ']';
 		}
 		return $r;
 	}
