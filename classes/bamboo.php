@@ -38,6 +38,24 @@ abstract class Bamboo
 		return $query->execute($obj->_db)->count();
 	}
 	
+	public static function get_paginated_list($name, $page, $results_per_page, 
+												$deep = false, $where = array(), 
+												$order_by = null, $order_by_dir = 'ASC',
+												$limit_offset = null, $limit = null)
+	{
+		$num_results = Bamboo::get_count($name, $where);
+		$first_result = ($page - 1) * $results_per_page;
+		if ($first_result >= $num_results) {
+			throw new Bamboo_Exception('Can\'t go to a non-existent page');
+		}
+		return array(
+			'num_results'		=>	$num_results,
+			'first_result'		=>	$first_result + 1,
+			'last_result'		=>	min(array($num_results, $first_result + $results_per_page)),
+			'results'			=>	Bamboo::get_list($name, $deep, $where, $order_by, $order_by_dir, $first_result, $results_per_page),			
+		);
+	}
+	
 	public static function get_list($name, $deep = false, $where = array(), 
 									$order_by = null, $order_by_dir = 'ASC',
 									$limit_offset = null, $limit = null)
