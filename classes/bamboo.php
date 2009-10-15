@@ -27,6 +27,17 @@ abstract class Bamboo
 		return $model;
 	}
 	
+	public static function get_count($name, $where = array())
+	{
+		$obj = Bamboo::factory($name);
+		$query = DB::select('*')
+					->from($obj->_table);
+		foreach ($where as $key=>$value) {
+			$query->where($key, '=', $value);
+		}
+		return $query->execute($obj->_db)->count();
+	}
+	
 	public static function get_list($name, $deep = false, $where = array(), 
 									$order_by = null, $order_by_dir = 'ASC',
 									$limit_offset = null, $limit = null)
