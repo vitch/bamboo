@@ -51,6 +51,7 @@ abstract class Bamboo
 		return array(
 			'num_results'		=>	$num_results,
 			'num_pages'			=>	ceil($num_results / $results_per_page),
+			'current_page'		=>	$page,
 			'first_result'		=>	$first_result + 1,
 			'last_result'		=>	min(array($num_results, $first_result + $results_per_page)),
 			'results'			=>	Bamboo::get_list($name, $deep, $where, $order_by, $order_by_dir, $first_result, $results_per_page),			
