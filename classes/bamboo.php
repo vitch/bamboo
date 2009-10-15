@@ -27,7 +27,9 @@ abstract class Bamboo
 		return $model;
 	}
 	
-	public static function get_list($name, $deep = FALSE, $where = array(), $order_by = NULL, $order_by_dir = 'ASC')
+	public static function get_list($name, $deep = false, $where = array(), 
+									$order_by = null, $order_by_dir = 'ASC',
+									$limit_offset = null, $limit = null)
 	{
 		$obj = Bamboo::factory($name);
 		$query = DB::select()
@@ -45,6 +47,11 @@ abstract class Bamboo
 		} else if ($obj->_sort_on) {
 			$query->order_by($obj->_sort_on);
 		}
+		
+		if ($limit_offset !== null && $limit !== null) {
+			$query->offset($limit_offset)->limit($limit);
+		}
+		
 		$results = array();
 		$result = $query->execute($obj->_db);
 		while ($row = $result->current()) {
